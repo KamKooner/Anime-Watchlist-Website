@@ -11,10 +11,10 @@ body{
     background-position: center;
     border:  1px solid;
 }
-.s-res{
+#s-res{
     height: auto;
     width: auto;
-    display: flex
+
     justify-content: center;
 }
 
