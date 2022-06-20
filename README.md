@@ -1,5 +1,5 @@
 # Movie-Watchlist
-Pulls from TMDB API
+Pulls from TMDB API,
 Search query results in list of movies
 Provides titles, descriptions, release dates, ratings, and genres
 
