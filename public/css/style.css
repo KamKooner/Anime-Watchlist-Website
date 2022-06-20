@@ -32,10 +32,12 @@ margin-right: 20%;
 }
 .sub-det{
     display: flex;
-    justify-content: space-between;
-    
-    
+    padding-right: 20px;
 }
+#rel, #gen{
+    padding-right: 30px;
+}
+
 
 .img-divide{
     display:flex;
@@ -51,7 +53,7 @@ margin-right: 20%;
     margin-left: 45.5%;
 }
 .watch-btn{
-    margin-top:17px;
+    margin-top:-3px;
     border: none;
     background-color: white;
 }
@@ -137,3 +139,6 @@ margin-right: 20%;
     border: none;
 }
 
+.no-res{
+    text-align: center;
+}

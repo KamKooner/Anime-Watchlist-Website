@@ -13,6 +13,17 @@ app.use('/js', express.static(__dirname + 'public/js'))
 app.use('/img', express.static(__dirname + 'public/img'))
 
 
+app.set('views', './views')
+app.set('view engine', 'ejs')
+
+
 app.get('', (req,res) => {
-    res.sendFile(__dirname + '/views/index.html')
+    res.render('index')
+})
+
+app.get('/watchlist', (req,res) => {
+    res.render('watchlist')
+})
+app.get('/index', (req,res) => {
+    res.render('index')
 })
