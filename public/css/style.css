@@ -5,16 +5,24 @@ body{
 }
 .cont1{
 
-    height: 10%;
+    height: 300px;
     background-image: url("/img/studio.jpg");
     background-size: cover;
     background-position: center;
     border:  1px solid;
+    text-align: center;
+    position: relative;
 }
 #s-res{
     height: auto;
     width: auto;
     justify-content: center;
+}
+.btn-cont{
+    position: absolute;
+
+left: 50%;
+transform: translate(-50%, 0%);
 }
 .search-boxes{
 padding-bottom:20px;
@@ -87,10 +95,10 @@ margin-right: 20%;
 
 #form{
     margin-top: 30px;
-    width: 30%;
+    width: 600px;
     height: 35px;
     margin-bottom: 100px;
-    margin-left: 38.3%;
+
     line-height: 20px;
 }
 
@@ -99,16 +107,17 @@ margin-right: 20%;
     font-size: 3.9rem;
     font-family: 'Inter', sans-serif;
     margin-top: 0px;
-    margin-left: 38%;
+    text-align: center;
     margin-bottom: 40px;
 
 }
 .wl-link{
+ 
     color:white;
     font-family: 'Inter', sans-serif;
     font-size: 1.5rem;
     text-decoration: none;
-    margin-left: 45%;
+    align-self: center;
     margin-bottom: 50%;
 }
 .wl-link:hover{
