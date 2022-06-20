@@ -6,6 +6,10 @@ let keyword = ""
 let url = baseURL+query
 let baseImageURL = null;
 let title = null;
+let rating = null;
+let overview = null;
+let genreArr = null;
+let releaseDate = null;
 var input = document.getElementById("search");
 input.addEventListener("keypress", function(event) {
     if (event.key === "Enter") {
@@ -37,8 +41,23 @@ document.getElementById('search-btn').addEventListener("click", searchBtnClick)
                 if (data.results[i].backdrop_path){
                     baseImageURL = 'https://image.tmdb.org/t/p/w342'+data.results[i].backdrop_path
                     title = data.results[i].original_title
-                    console.log(title)
-                    renderData(baseImageURL, title)
+                    rating = data.results[i].vote_average
+                    overview = data.results[i].overview
+                    releaseDate = data.results[i].release_date
+                    if (!releaseDate){
+                        releaseDate = 'N/A'
+                    }
+                    genreArr = data.results[i].genre_ids
+                    const genre = {"genres":[{"id":28,"name":"Action"},{"id":12,"name":"Adventure"},{"id":16,"name":"Animation"},{"id":35,"name":"Comedy"},{"id":80,"name":"Crime"},{"id":99,"name":"Documentary"},{"id":18,"name":"Drama"},{"id":10751,"name":"Family"},{"id":14,"name":"Fantasy"},{"id":36,"name":"History"},{"id":27,"name":"Horror"},{"id":10402,"name":"Music"},{"id":9648,"name":"Mystery"},{"id":10749,"name":"Romance"},{"id":878,"name":"Science Fiction"},{"id":10770,"name":"TV Movie"},{"id":53,"name":"Thriller"},{"id":10752,"name":"War"},{"id":37,"name":"Western"}]}
+                    const mappedGenre = genreArr.map(x => {
+                        for (let i=0; i<genre.genres.length; i++){
+                            if (x === genre.genres[i].id){
+                                return genre.genres[i].name
+                            }
+                        }
+                    })
+                    console.log(mappedGenre)
+                    renderData(baseImageURL, title, rating, overview,releaseDate, mappedGenre.slice(0,3).join(', '))
                 }
                
             }
@@ -46,14 +65,30 @@ document.getElementById('search-btn').addEventListener("click", searchBtnClick)
         })
     }
 
-    function renderData(image, title){
+    function renderData(image, title, rating, overview,releaseDate, mappedGenre){
         document.getElementById('s-res').innerHTML += `
         <div class="search-boxes">
-            <h1>${title}</h1>
-            <img src=${image}>
+            <div class='img-divide'> 
+                <img src=${image}>
+                <div class='movie-description'>
+                    <h1 id='title'>${title} <img class='star' src='/img/star.png'> <span class='rating'>${rating}</span></h1>
+                    <div class='sub-det'>
+                        <p id='rel'>Release Date: ${releaseDate}</p>
+                        <p id='gen'>Genres: ${mappedGenre}</p>
+                        <span>
+                            <img class='watch-btn' name="jsbutton" src="/img/Watchlist-btn.png" width="16" height="16" border="0">
+                            <button class='watch-btn'> Watchlist</button>
+                        </span>
+                    </div>
+                    
+                    <p class='overview'>${overview}</p>
+                </div>
+                
+                
+            </div>
         </div>`
     }
-
+    
 
    
      
