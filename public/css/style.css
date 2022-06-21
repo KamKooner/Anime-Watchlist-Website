@@ -61,6 +61,7 @@ margin-right: 20%;
     margin-left: 45.5%;
 }
 .watch-btn{
+    cursor: pointer;
     margin-top:-3px;
     border: none;
     background-color: white;
@@ -91,6 +92,11 @@ margin-right: 20%;
     font-weight: 400;
     color: #6B7280;
 
+}
+#watched{
+    height: auto;
+    width: auto;
+    justify-content: center;
 }
 
 #form{

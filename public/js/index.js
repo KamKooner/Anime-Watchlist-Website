@@ -1,4 +1,5 @@
 
+
 const apikey = "631193673b3ecb505ff6875ef4f0e6a1"
 let baseURL = 'https://api.themoviedb.org/3/'
 let query = `search/movie?api_key=${apikey}&query=`
@@ -11,20 +12,27 @@ let overview = null;
 let genreArr = null;
 let releaseDate = null;
 let totalres = null;
-var input = document.getElementById("search");
-input.addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      document.getElementById("search-btn").click();
-      document.getElementById('search').value = ""
-    }
-})
+let ob = [];
+let counter = -1;
+let bool = false; 
+
+if (window.location.href === 'http://localhost:3000/index'){
+    var input = document.getElementById("search");
+
+        input.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+            event.preventDefault();
+            document.getElementById("search-btn").click();
+            document.getElementById('search').value = ""
+            }
+        })
+
 
 
 
 
 document.getElementById('search-btn').addEventListener("click", searchBtnClick)
-
+    
     function searchBtnClick(){
         keyword = document.getElementById('search').value
         url = baseURL+query
@@ -33,7 +41,7 @@ document.getElementById('search-btn').addEventListener("click", searchBtnClick)
         document.getElementById('s-res').innerHTML = "";
         fetcher(url)
     }
-
+}
     function fetcher(url){
         fetch(url) 
         .then(res => res.json())
@@ -66,8 +74,8 @@ document.getElementById('search-btn').addEventListener("click", searchBtnClick)
                                 return genre.genres[i].name
                             }
                         }
-                    })
-                    
+                    });
+                    counter++;
                     renderData(baseImageURL, title, rating, overview,releaseDate, mappedGenre.slice(0,3).join(', '), totalres)
                 }
                
@@ -78,7 +86,7 @@ document.getElementById('search-btn').addEventListener("click", searchBtnClick)
 
     function renderData(image, title, rating, overview,releaseDate, mappedGenre, totalres){
         if(totalres != 0){
-        console.log(totalres)
+        ob.push({img: image,tit: title,rat: rating,over: overview,rel: releaseDate,gen: mappedGenre,tres: totalres})
         document.getElementById('s-res').innerHTML += `
         <div class="search-boxes">
             <div class='img-divide'> 
@@ -89,19 +97,27 @@ document.getElementById('search-btn').addEventListener("click", searchBtnClick)
                         <span id='rel'>Release Date: ${releaseDate}</span>
                         <span id='gen'>Genres: ${mappedGenre}</span>
                         <span id='btn'>
-                        <a onclick="location.href='/watchlist'" type="button" class='watch-btn'><img class='watch-btn' name="jsbutton" src="/img/Watchlist-btn.png" width="16" height="16" border="0"> Watchlist</a>    
+                        <a onclick="btnTextChange(${counter})" type="button" id='${counter}' class='watch-btn'><img class='watch-btn' name="jsbutton" src="/img/Watchlist-btn.png" width="16" height="16" border="0"> Watchlist</a>  
                         </span>
                     </div>
-                    
                     <p class='overview'>${overview}</p>
                 </div>
-                
-                
             </div>
         </div>`
         }
     }
-    
+    function btnTextChange(counter){
+        bool = !bool
+        if(bool){   
+            document.getElementById(counter).innerHTML = `<a type="button" style="color:#FF0000;" id='${counter}' class='watch-btn'>Remove </a>  `
+          }
+        else { 
+            document.getElementById(counter).innerHTML = `
+            <a type="button" id='${counter}' class='watch-btn'><img class='watch-btn' name="jsbutton" src="/img/Watchlist-btn.png" width="16" height="16" border="0"> Watchlist</a>`
+              }
+        
+        console.log(bool)
+    }
 
    
      
