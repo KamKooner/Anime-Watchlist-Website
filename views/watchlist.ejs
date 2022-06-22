@@ -1,6 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
+    <script>window.onload = function() {
+        for (const key in window.localStorage){
+            let image = JSON.parse(window.localStorage.getItem(key)).image
+            let title=JSON.parse(window.localStorage.getItem(key)).title
+            let rating=JSON.parse(window.localStorage.getItem(key)).rating
+            let overview=JSON.parse(window.localStorage.getItem(key)).overview
+            let releaseDate=JSON.parse(window.localStorage.getItem(key)).releaseDate
+            let mappedGenre=JSON.parse(window.localStorage.getItem(key)).mappedGenre
+            let totalres=JSON.parse(window.localStorage.getItem(key)).totalres
+            document.getElementById('watched').innerHTML += `
+            <div class="search-boxes">
+                <div class='img-divide'> 
+                    <img src=${image}>
+                    <div class='movie-description'>
+                        <h1 id='title'>${title} <img class='star' src='/img/star.png'> <span class='rating'>${rating}</span></h1>
+                        <div class='sub-det'>
+                            <span id='rel'>Release Date: ${releaseDate}</span>
+                            <span id='gen'>Genres: ${mappedGenre}</span>
+                            <span id='btn'>  
+                            </span>
+                        </div>
+                        <p class='overview'>${overview}</p>
+                    </div>
+                </div>
+            </div>`
+        }
+        
+        
+        }</script>
     <base href="/" />
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,7 +58,9 @@
         <a class="wl-link" onclick="location.href='index'" type="button">Search Movies</a>
     </div>
 
-    <div id='watched'>You see</div>
-    <script async src="js/index.js"></script>
+    <div id='watched'></div>
+    
 </body>
+<script async src="js/index.js"></script>
+
 </html>
