@@ -86,14 +86,7 @@ document.getElementById('search-btn').addEventListener("click", searchBtnClick)
     function renderData(image, title, rating, overview,releaseDate, mappedGenre, totalres){
         ob.push({image: image,title: title,rating: rating,overview: overview,releaseDate: releaseDate,mappedGenre: mappedGenre,totalres: totalres})
         
-            for(const key in localStorage){
-                if (title === key){
-                    boolArr[counter] = true     
-                }else{
-                    boolArr[counter] = false;
-                    
-                }
-            }    
+               
         
         document.getElementById('s-res').innerHTML += `
         <div class="search-boxes">
@@ -104,15 +97,24 @@ document.getElementById('search-btn').addEventListener("click", searchBtnClick)
                     <div class='sub-det'>
                         <span id='rel'>Release Date: ${releaseDate}</span>
                         <span id='gen'>Genres: ${mappedGenre}</span>
-                        <span id='btn'>
-                        <a onclick="btnTextChange(${counter})" type="button" id='${counter}' class='watch-btn'><img class='watch-btn' name="jsbutton" src="/img/Watchlist-btn.png" width="16" height="16" border="0"> Watchlist</a>  
+                        <span id='${counter}'>
+                        <a onclick="btnTextChange(${counter})" type="button" class='watch-btn'><img class='watch-btn' name="jsbutton" src="/img/Watchlist-btn.png" width="16" height="16" border="0"> Watchlist</a>  
                         </span>
                     </div>
                     <p class='overview'>${overview}</p>
                 </div>
             </div>
         </div>`
-        
+        for(const key in localStorage){
+            if (title === key){
+                boolArr[counter] = false  
+                btnTextChange(counter)   
+            }else{
+                boolArr[counter] = true;
+                
+                
+            }
+        } 
         
     }
 
@@ -120,20 +122,19 @@ document.getElementById('search-btn').addEventListener("click", searchBtnClick)
         
     
     function btnTextChange(counter){
-        if (c2===0){boolArr[counter] = !boolArr[counter]
-        c2++;}
-        else{boolArr[counter] = !boolArr[counter]}
+       boolArr[counter] = !boolArr[counter]
         
         console.log(boolArr[counter])
         if(boolArr[counter]){   
             window.localStorage.setItem(`${ob[counter].title}`, JSON.stringify(ob[counter]));
             
-            document.getElementById(counter).innerHTML = `<a onclick="btnTextChange(${counter})" type="button" style="color:#FF0000;" id='${counter}' class='watch-btn'>Remove </a>  `
-    
+            document.getElementById(counter).innerHTML = `<a onclick="btnTextChange(${counter})" type="button" style="color:#FF0000;" class='watch-btn'>Remove </a>  `
+            return;
           }
         else { 
             window.localStorage.removeItem(`${ob[counter].title}`)
-            document.getElementById(counter).innerHTML = `<a onclick="btnTextChange(${counter})" type="button" id='${counter}' class='watch-btn'><img class='watch-btn' name="jsbutton" src="/img/Watchlist-btn.png" width="16" height="16" border="0"> Watchlist</a>`
+            document.getElementById(counter).innerHTML = `<a onclick="btnTextChange(${counter})" type="button"  class='watch-btn'><img class='watch-btn' name="jsbutton" src="/img/Watchlist-btn.png" width="16" height="16" border="0"> Watchlist</a>`
+            return;
               }
               
     }
