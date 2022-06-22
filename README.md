@@ -5,4 +5,5 @@ Provides titles, descriptions, release dates, ratings, and genres.
 
 'Watchlist + button' Navigates you to an html page where all content is from called from storage- (User's saved films)
 
-![Movies](https://user-images.githubusercontent.com/85206896/174683476-57e619fd-dfe6-4d4e-bc55-b08a08003168.PNG)
+
+![Anime List Finalized](https://user-images.githubusercontent.com/85206896/175054368-09c44571-1f09-42e6-ba26-16c366af5445.PNG)
