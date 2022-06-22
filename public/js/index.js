@@ -1,5 +1,3 @@
-
-
 const apikey = "631193673b3ecb505ff6875ef4f0e6a1"
 let baseURL = 'https://api.themoviedb.org/3/'
 let query = `search/movie?api_key=${apikey}&query=`
@@ -14,8 +12,8 @@ let releaseDate = null;
 let totalres = null;
 let ob = [];
 let counter = -1;
-let bool = false; 
-
+let boolArr = []; 
+let c2 = 0;
 if (window.location.href === 'http://localhost:3000/index'){
     var input = document.getElementById("search");
 
@@ -76,6 +74,7 @@ document.getElementById('search-btn').addEventListener("click", searchBtnClick)
                         }
                     });
                     counter++;
+                    boolArr.push(false)
                     renderData(baseImageURL, title, rating, overview,releaseDate, mappedGenre.slice(0,3).join(', '), totalres)
                 }
                
@@ -85,8 +84,17 @@ document.getElementById('search-btn').addEventListener("click", searchBtnClick)
     }
 
     function renderData(image, title, rating, overview,releaseDate, mappedGenre, totalres){
-        if(totalres != 0){
-        ob.push({img: image,tit: title,rat: rating,over: overview,rel: releaseDate,gen: mappedGenre,tres: totalres})
+        ob.push({image: image,title: title,rating: rating,overview: overview,releaseDate: releaseDate,mappedGenre: mappedGenre,totalres: totalres})
+        
+            for(const key in localStorage){
+                if (title === key){
+                    boolArr[counter] = true     
+                }else{
+                    boolArr[counter] = false;
+                    
+                }
+            }    
+        
         document.getElementById('s-res').innerHTML += `
         <div class="search-boxes">
             <div class='img-divide'> 
@@ -104,20 +112,32 @@ document.getElementById('search-btn').addEventListener("click", searchBtnClick)
                 </div>
             </div>
         </div>`
-        }
+        
+        
     }
+
+      
+        
+    
     function btnTextChange(counter){
-        bool = !bool
-        if(bool){   
-            document.getElementById(counter).innerHTML = `<a type="button" style="color:#FF0000;" id='${counter}' class='watch-btn'>Remove </a>  `
+        if (c2===0){boolArr[counter] = !boolArr[counter]
+        c2++;}
+        else{boolArr[counter] = !boolArr[counter]}
+        
+        console.log(boolArr[counter])
+        if(boolArr[counter]){   
+            window.localStorage.setItem(`${ob[counter].title}`, JSON.stringify(ob[counter]));
+            
+            document.getElementById(counter).innerHTML = `<a onclick="btnTextChange(${counter})" type="button" style="color:#FF0000;" id='${counter}' class='watch-btn'>Remove </a>  `
+    
           }
         else { 
-            document.getElementById(counter).innerHTML = `
-            <a type="button" id='${counter}' class='watch-btn'><img class='watch-btn' name="jsbutton" src="/img/Watchlist-btn.png" width="16" height="16" border="0"> Watchlist</a>`
+            window.localStorage.removeItem(`${ob[counter].title}`)
+            document.getElementById(counter).innerHTML = `<a onclick="btnTextChange(${counter})" type="button" id='${counter}' class='watch-btn'><img class='watch-btn' name="jsbutton" src="/img/Watchlist-btn.png" width="16" height="16" border="0"> Watchlist</a>`
               }
-        
-        console.log(bool)
+              
     }
+
 
    
      
