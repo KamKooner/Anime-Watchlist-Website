@@ -1,4 +1,4 @@
-# Movie-Watchlist
+# Anime-Watchlist
 Pulls from TMDB API,
 search query results in list of movies.
 Provides titles, descriptions, release dates, ratings, and genres.
